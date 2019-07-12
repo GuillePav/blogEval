@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
 
             $blogPost = new BlogPost();
             $blogPost->setTitle('Titre n°'.$i);
-            $blogPost->setSlug('Slug');
+            $blogPost->setSlug('Slug'.$i);
             $blogPost->setContent('Ceci est le contenu du post n° '.$i);
             $blogPost->setDate(12072019);
             $blogPost->setFeatured(true);

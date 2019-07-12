@@ -33,10 +33,8 @@ class BlogPostController extends AbstractController
 
     /**
      * @Route("/blog/{id}", name="editPost", requirements = {"id"="\d+"})
-     * @Route("/blog/slug", name="slug", requirements = {"slug"="[a-zA-Z0-9_-]+"})
-     * @Route("/blog/date/slug", name="date_slug", requirements = {"date"="\d\d\d\d"})
      */
-    public function showPostAction($id)
+    public function showPostActionId($id)
     {
         $repository = $this->getDoctrine()->getRepository(BlogPost::class);
         $blogPost = $repository->find($id);
@@ -52,6 +50,32 @@ class BlogPostController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/blog/{slug}", name="slug", requirements = {"slug"="[a-zA-Z0-9_-]+"})
+     */
+    public function showPostSlugAction($slug)
+    {
+        $repository = $this->getDoctrine()->getRepository(BlogPost::class);
+        $blogPost = $repository->find($slug);
+
+        if (!$blogPost) {
+            throw $this->createNotFoundException(
+                'No post found for slug ' . $slug
+            );
+        }
+
+        return $this->render('blog_post/editPost.html.twig', [
+            'blogPost' => $blogPost,
+        ]);
+    }
+
+    /**
+     * @Route("/blog/{date}/{slug}", name="date", requirements = {"date"="\d\d\d\d"})
+     */
+    public function showPostDateSlugAction($date, $slug)
+    {
+        //TODO
+    }
     /**
      * @Route("/admin/new-post", name="newPost")
      */
