@@ -32,7 +32,7 @@ class BlogPostController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}", name="editPost")
+     * @Route("/blog/{id}", name="editPost", requirements = {"id"="\d+"})
      * @Route("/blog/slug", name="slug", requirements = {"slug"="[a-zA-Z0-9_-]+"})
      * @Route("/blog/date/slug", name="date_slug", requirements = {"date"="\d\d\d\d"})
      */
@@ -135,6 +135,21 @@ class BlogPostController extends AbstractController
         }
         return $this->render('admin/delete.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/blog/feat", name="posts_feat_list")
+     */
+    public function editPostsFeat() {
+
+        $blogPost = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(BlogPost ::class);
+        $blogPostList = $blogPost->findBy(['featured' => 1]);
+
+        return $this->render('blog_post/featured.html.twig', [
+            'blogPostList' => $blogPostList,
         ]);
     }
 }

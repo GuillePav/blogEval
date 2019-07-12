@@ -11,16 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        //Création de 8 catégories :
 
-        for($i=0; $i < 8; $i++) {
-            $category = new Category();
-            $category->setName('Categorie'.$i);
-
-            //Insertion des données en base :
-            $manager->persist($category);
-            $manager->flush();
-        }
 
         //Création de 30 objets BlogPost en BDD :
         for ($i=0; $i<30; $i++) {
